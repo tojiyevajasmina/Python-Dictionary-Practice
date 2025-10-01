@@ -11,7 +11,16 @@ def get_full_names(data: dict) -> list[str]:
     Returns:
         list[str]: List of full names.
     """
-    pass
+    names = []
+    for user in data['results']:
+        name = user['name']
+        fullname = f"{name['first']} {name['last']}"
+        names.append(fullname)
+
+    return names
+
+# a = get_full_names(randomuser_data)
+# print(a)
 
 
 def get_users_by_country(data: dict, country: str) -> list[dict]:
@@ -25,7 +34,18 @@ def get_users_by_country(data: dict, country: str) -> list[dict]:
     Returns:
         list[dict]: List of dictionaries containing full name and email of matching users.
     """
-    pass
+    result = []
+    for user in data['results']:
+        if user['location']['country'] == country:
+            result.append({
+                'name': f"{user['name']['first']} {user['name']['last']}",
+                'email': user['email']
+            })
+    return result
+
+#a = get_users_by_country(randomuser_data, "India")
+#print(a)
+
 
 
 def count_users_by_gender(data: dict) -> dict:
@@ -38,7 +58,18 @@ def count_users_by_gender(data: dict) -> dict:
     Returns:
         dict: Dictionary with gender as keys and count as values.
     """
-    pass
+    result = {'male': 0,'female': 0}
+
+    for user in data ['results']:
+        if user ['gender'] == 'male':
+            result ['male'] += 1
+        elif user ['gender'] == 'female':
+            result ['female'] += 1
+
+    return result
+
+#r = count_users_by_gender(randomuser_data)
+#print(r)
 
 
 def get_emails_of_older_than(data: dict, age: int) -> list[str]:
@@ -52,8 +83,14 @@ def get_emails_of_older_than(data: dict, age: int) -> list[str]:
     Returns:
         list[str]: List of email addresses.
     """
-    pass
+    emails = []
+    for user in data.get("users", []):  
+        if user.get("age", 0) > age:
+            emails.append(user.get("email"))
+    return emails
 
+#b = get_emails_of_older_than(randomuser_data, 50)
+#print(b) #
 
 def sort_users_by_age(data: dict, descending: bool = False) -> list[dict]:
     """
@@ -163,4 +200,3 @@ def get_registered_before_year(data: dict, year: int) -> list[dict]:
     pass
 
 
-get_full_names(randomuser_data)
