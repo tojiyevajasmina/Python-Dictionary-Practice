@@ -143,7 +143,17 @@ def group_users_by_nationality(data: dict) -> dict:
     Returns:
         dict: Dictionary with nationality as keys and count as values.
     """
-    pass
+    group = {}
+    for user in data ['results']:
+        if user ['nat'] not in group:
+            group[user['nat']] = 0
+
+        group[user['nat']] += 1
+
+    return group
+
+j = group_users_by_nationality(randomuser_data)
+print(j)
 
 
 def get_all_coordinates(data: dict) -> list[tuple[str, str]]:
@@ -183,7 +193,8 @@ def find_users_in_timezone(data: dict, offset: str) -> list[dict]:
     Returns:
         list[dict]: List of users with full name and city.
     """
-    pass
+    #filtered_users = []
+    
 
 
 def get_registered_before_year(data: dict, year: int) -> list[dict]:
